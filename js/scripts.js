@@ -29,6 +29,7 @@ window.addEventListener('DOMContentLoaded', () => {
 })
 const servicePrefix = 'http://localhost:1337/api/posts/';
 
+
 const contentEl = document.querySelector('.content');
 
 window.addEventListener('hashchange', changeRoute);
@@ -52,6 +53,8 @@ async function loadSubPage(url) {
     
     contentEl.innerHTML = `
         <div class="post">
+        
+            
             <h3>${post.data.attributes.title}</h3>
             <h4>${post.data.attributes.summary}</h4>
             <div class="content">
@@ -64,6 +67,7 @@ async function loadSubPage(url) {
 
 async function loadHomePage() {
     const posts = await fetch(servicePrefix).then(r => r.json());
+    
     contentEl.innerHTML = '';
     for(const post of posts.data) {
         contentEl.innerHTML += `
