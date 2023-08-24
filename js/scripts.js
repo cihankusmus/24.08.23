@@ -94,9 +94,4 @@ async function loadHomePage() {
 
 }
 
-function bindPostsClicks() {
-    document.querySelectorAll('.post a').forEach(x => x.addEventListener('click', handleHomepageClicks));
-        
-}
-
 changeRoute();
