@@ -53,14 +53,16 @@ async function loadSubPage(url) {
     
     contentEl.innerHTML = `
         <div class="post">
-        
+        <div class="col-md-10 col-lg-8 col-xl-7">
             
-            <h3>${post.data.attributes.title}</h3>
+            <h2 class="section-heading">The Final Frontier${post.data.attributes.title}</h2>
             <h4>${post.data.attributes.summary}</h4>
             <div class="content">
-                ${post.data.attributes.content}
+                <p>${post.data.attributes.content}<p>
             </div>
         </div>
+        </div>
+
         `;
         
 }
@@ -75,7 +77,7 @@ async function loadHomePage() {
         <hr class="my-4" />
                     
                     <div class="post-preview">
-                        <a href="#/${post.id}" target="_blank">
+                        <a href="post.html#/${post.id}" target="_blank">
                             <h2 class="post-title">${post.attributes.title}</h2>
                             <h3 class="post-subtitle">${post.attributes.summary}</h3>
                         </a>

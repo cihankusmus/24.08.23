@@ -84,6 +84,11 @@
 *::after {
   box-sizing: border-box;
 }
+.post{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 @media (prefers-reduced-motion: no-preference) {
   :root {
