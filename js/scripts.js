@@ -40,7 +40,7 @@ function changeRoute() {
 }
 
 async function loadPage(url) {
-    contentEl.innerHTML = 'Yükleniyor';
+    
     if (url === '') {
         loadHomePage();
     } else {
