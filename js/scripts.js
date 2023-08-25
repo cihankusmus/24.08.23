@@ -77,7 +77,7 @@ async function loadHomePage() {
         <hr class="my-4" />
                     
                     <div class="post-preview">
-                        <a href="post.html#/${post.id}" target="_blank">
+                        <a href="post.html#/${post.id}">
                             <h2 class="post-title">${post.attributes.title}</h2>
                             <h3 class="post-subtitle">${post.attributes.summary}</h3>
                         </a>
