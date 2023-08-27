@@ -55,7 +55,7 @@ async function loadSubPage(url) {
         <div class="post">
         <div class="col-md-10 col-lg-8 col-xl-7">
             
-            <h2 class="section-heading">The Final Frontier${post.data.attributes.title}</h2>
+            <h2 class="section-heading">${post.data.attributes.title}</h2>
             <h4>${post.data.attributes.summary}</h4>
             <div class="content">
                 <p>${post.data.attributes.content}<p>
@@ -95,5 +95,52 @@ async function loadHomePage() {
     bindPostsClicks();
 
 }
+
+const commentForm = document.querySelector('.comment form');
+
+// endpoint
+
+// async ibaresini eklediğimizde çalışması devam eden isteklerimizin sonuçlanmasını bekleyebiliyoruz
+// beklememiz gereken isteklere de await ekliyoruz
+async function loadData() {
+    let post = await fetch('http://localhost:1337/api/posts/1').then(x => x.json());
+    let comments = await fetch('http://localhost:1337/api/comments?sort=createdAt&filters[post][id][$eq]=' + post.data.id).then(x => x.json());
+
+    
+    contentEl.innerHTML += `<hr>`; // olmasa da olur
+    contentEl.innerHTML += `<h3 class="post">Yorumlar:</h3>`;
+
+    for(const comment of comments.data) {
+        contentEl.innerHTML += `<p class="post">${comment.attributes.name} ${new Date(comment.attributes.createdAt).toLocaleString('tr')} tarihinde demiş ki: <br> ${comment.attributes.comment}</p>`;
+    }
+}
+
+function appendNewComment(commentData) {
+    contentEl.innerHTML += `<p>${commentData.data.attributes.name} demiş ki: <br> ${commentData.data.attributes.comment}</p>`;
+}
+
+commentForm.addEventListener('submit', function(event) {
+    event.preventDefault();
+    const formData = new FormData(commentForm);
+    const formObj = Object.fromEntries(formData);
+    formObj.post = 1;
+    
+    fetch('http://localhost:1337/api/comments', {
+        method: 'POST',
+        body: JSON.stringify({data: formObj}),
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).catch(function() {
+        alert('gönderilemedi');
+    }).then(function(response) {
+        return response.json();
+    }).then(function(responseData) {
+        appendNewComment(responseData);
+        commentForm.reset();
+    });
+});
+
+loadData();
 
 changeRoute();
